@@ -1,4 +1,3 @@
-// Write your code here
 import {Component} from 'react'
 import Login from '../Login/index'
 import Logout from '../Logout/index'
@@ -10,7 +9,8 @@ class Home extends Component {
 
   change = () => {
     this.setState(pState => {
-      if (pState.isLoged) {
+      const {isLoged} = pState
+      if (isLoged) {
         return {isLoged: false}
       }
       return {isLoged: true}
@@ -19,14 +19,20 @@ class Home extends Component {
 
   render() {
     const {isLoged} = this.state
+    console.log(isLoged)
     return (
       <div className="d1">
-        <div className="d2">
-          <h1>jdkfvbsdfbgdi</h1>
-          {!isLoged
-            ? (<Message state={isLoged} />)(<Login change={this.change} />)
-            : (<Message state={isLoged} />)(<Logout change={this.change} />)}
-        </div>
+        {!isLoged ? (
+          <div className="d2">
+            <Message state={isLoged} />
+            <Login state={isLoged} change={this.change} />
+          </div>
+        ) : (
+          <div className="d2">
+            <Message state={isLoged} />
+            <Logout state={isLoged} change={this.change} />
+          </div>
+        )}
       </div>
     )
   }
